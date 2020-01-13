@@ -101,7 +101,9 @@ if(isempty(x.lpolys{pg.layoutidx, 1}))
     xfloor = [0];
     yfloor = [0];
 else
-    [xfloor, yfloor] = poly2cw(x.lpolys{pg.layoutidx, 1}(:, 1), x.lpolys{pg.layoutidx, 1}(:, 2));
+    % originally uses poly2cw in order to order the polygon vertices
+    % in clockwise order
+    [xfloor, yfloor] = orientPolygon(x.lpolys{pg.layoutidx, 1}(:, 1), x.lpolys{pg.layoutidx, 1}(:, 2), dir = "cw");
 end
 phi(ibase) = polyarea(xfloor, yfloor) / prod(x.imsz);
 
@@ -281,7 +283,8 @@ else
 		xfloor = [0];
 		yfloor = [0];
 	else
-		[xfloor, yfloor] = poly2cw(x.lpolys{pg.layoutidx, 1}(:, 1), x.lpolys{pg.layoutidx, 1}(:, 2));
+        % originally poly2cw
+		[xfloor, yfloor] = orientPolygon(x.lpolys{pg.layoutidx, 1}(:, 1), x.lpolys{pg.layoutidx, 1}(:, 2), dir = "cw");
 	end
 	phi(ibase) = polyarea(xfloor, yfloor) / prod(x.imsz);
 end

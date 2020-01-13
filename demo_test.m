@@ -1,4 +1,5 @@
 clear
+pkg load geometry
 
 addPaths;
 
@@ -93,7 +94,9 @@ conf3 = cell(1, length(datafiles)); % 3DGP with Marginalization 2
 erroridx = false(1, length(datafiles));
 csize = 32;
 
-myPool = parpool;
+% Commented in order to skip clustering for simple running 
+% in Octave
+%myPool = parpool;
 for idx = 1:csize:length(datafiles)
     setsize = min(length(datafiles) - idx + 1, csize);
     fprintf(['processing ' num2str(idx) ' - ' num2str(idx + setsize)]);
@@ -148,7 +151,9 @@ for idx = 1:csize:length(datafiles)
     end
     fprintf(' => done\n')
 end
-delete(myPool)
+
+%delete(myPool)
+
 %% draw detection evaluation curves
 om = objmodels();
 for i = 1:length(om)-1
