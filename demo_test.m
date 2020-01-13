@@ -3,9 +3,10 @@ clear
 addPaths;
 
 if(~exist('./dataset', 'dir'))
-    mkdir('dataset');
-    system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorData.tar.gz');
-    system('mv cvpr13IndoorData.tar.gz ./dataset/; cd dataset/; tar xvf cvpr13IndoorData.tar.gz; rm cvpr13IndoorData.tar.gz; cd ..');
+    disp("!!!!!!!!!!!!!Do dataset handling by hand!!!!!!!!!!")
+    %mkdir('dataset');
+    %system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorData.tar.gz');
+    %system('mv cvpr13IndoorData.tar.gz ./dataset/; cd dataset/; tar xvf cvpr13IndoorData.tar.gz; rm cvpr13IndoorData.tar.gz; cd ..');
 end
 
 imgbase = './dataset/cvpr13data/images/';
@@ -14,9 +15,12 @@ preprocess_dir = 'cache/test';
 if(~exist(preprocess_dir, 'dir'))
     r = input('Download preprocessed data? (y) or run all preprocessing? (n)', 's');
     if(r == 'y')
-        mkdir('cache');
-        system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorPreprocessed.tar.gz'); 
-        system('mv cvpr13IndoorPreprocessed.tar.gz ./cache/; cd cache; tar xvf cvpr13IndoorPreprocessed.tar.gz; rm cvpr13IndoorPreprocessed.tar.gz; cd ..');
+        disp("TODO: download dataset by hand using linux terminal")
+        %!!!!!!!!!!!!!!!!!!!!! Do this in the linux terminal by hand
+        %!!!!!!!!!!!!!!!!!!
+        %mkdir('cache');
+        %system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorPreprocessed.tar.gz'); 
+        %system('mv cvpr13IndoorPreprocessed.tar.gz ./cache/; cd cache; tar xvf cvpr13IndoorPreprocessed.tar.gz; rm cvpr13IndoorPreprocessed.tar.gz; cd ..');
     else
 		disp('WARNING: preprocessing may take several hours to a day (depending on the computing power).')
         disp('Please let it run, relax and check back later!');
@@ -89,7 +93,7 @@ conf3 = cell(1, length(datafiles)); % 3DGP with Marginalization 2
 erroridx = false(1, length(datafiles));
 csize = 32;
 
-matlabpool open;
+myPool = parpool;
 for idx = 1:csize:length(datafiles)
     setsize = min(length(datafiles) - idx + 1, csize);
     fprintf(['processing ' num2str(idx) ' - ' num2str(idx + setsize)]);
@@ -144,7 +148,7 @@ for idx = 1:csize:length(datafiles)
     end
     fprintf(' => done\n')
 end
-matlabpool close
+delete(myPool)
 %% draw detection evaluation curves
 om = objmodels();
 for i = 1:length(om)-1
@@ -192,6 +196,8 @@ pg0.layoutidx = 1; % initialization
 pg0.scenetype = 1;
 
 for dataidx = datalist
+    fprintf('The current index is ');
+    disp(dataidx)
     data = load(fullfile(preprocess_dir, datafiles(dataidx).name));
     % necessary if downloaded the preprocessed data     
     if(~exist(data.x.imfile, 'file'))
@@ -208,5 +214,5 @@ for dataidx = datalist
     
     show2DGraph(nmspg, data.x, clusters, 1);
     show3DGraph(nmspg, data.x, clusters, 2); 
-    pause
+    pause(7)
 end
