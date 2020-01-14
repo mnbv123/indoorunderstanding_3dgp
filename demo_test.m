@@ -3,9 +3,9 @@ clear
 addPaths;
 
 if(~exist('./dataset', 'dir'))
-    mkdir('dataset');
-    system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorData.tar.gz');
-    system('mv cvpr13IndoorData.tar.gz ./dataset/; cd dataset/; tar xvf cvpr13IndoorData.tar.gz; rm cvpr13IndoorData.tar.gz; cd ..');
+    %mkdir('dataset');
+    %system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorData.tar.gz');
+    %system('mv cvpr13IndoorData.tar.gz ./dataset/; cd dataset/; tar xvf cvpr13IndoorData.tar.gz; rm cvpr13IndoorData.tar.gz; cd ..');
 end
 
 imgbase = './dataset/cvpr13data/images/';
@@ -14,9 +14,9 @@ preprocess_dir = 'cache/test';
 if(~exist(preprocess_dir, 'dir'))
     r = input('Download preprocessed data? (y) or run all preprocessing? (n)', 's');
     if(r == 'y')
-        mkdir('cache');
-        system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorPreprocessed.tar.gz'); 
-        system('mv cvpr13IndoorPreprocessed.tar.gz ./cache/; cd cache; tar xvf cvpr13IndoorPreprocessed.tar.gz; rm cvpr13IndoorPreprocessed.tar.gz; cd ..');
+        %mkdir('cache');
+        %system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorPreprocessed.tar.gz'); 
+        %system('mv cvpr13IndoorPreprocessed.tar.gz ./cache/; cd cache; tar xvf cvpr13IndoorPreprocessed.tar.gz; rm cvpr13IndoorPreprocessed.tar.gz; cd ..');
     else
 		disp('WARNING: preprocessing may take several hours to a day (depending on the computing power).')
         disp('Please let it run, relax and check back later!');

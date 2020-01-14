@@ -1,4 +1,10 @@
 function show3DGraph(pg, x, iclusters, figid)
+% figid appears to be the id number for the figure
+
+% pg is 
+
+% When this line is commented it causes an error
+% imshow(x.imfile);
 % imshow(x.imfile);
 if nargin < 4
     figid = 1001;

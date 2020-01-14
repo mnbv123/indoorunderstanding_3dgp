@@ -1,4 +1,6 @@
 function draw3DObjects(objs, objmodels, figid)
+
+
 figure(figid);
 for i = 1:length(objs)
     model = objmodels(objs(i).ittype);    
