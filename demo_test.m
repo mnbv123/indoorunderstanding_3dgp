@@ -205,8 +205,31 @@ for dataidx = datalist
 
     [oconf] = reestimateObjectConfidences(spg, maxidx, data.x, clusters, params);
     nmspg = getNMSgraph(spg(maxidx), data.x, clusters, oconf);
+
+    %show2DGraph(nmspg, data.x, clusters, 1);
     
-    show2DGraph(nmspg, data.x, clusters, 1);
+    fprintf("data.x is ")
+    disp(data.x)
+    
+    fprintf("data is ")
+    disp(data)
+    
+    fprintf("data.x.corners is ")
+    celldisp(data.x.corners)
+    
+    fprintf("data.x.corners 1,1 is ")
+    celldisp(data.x.corners(1,1))
+    % data.x.corners is a 2 x 4 array where some values can be NaN
+    % Perhaps these are corners of bounding boxes for objects? In the 
+    % final model the scale is an order of 100 times smaller though 
+    
+    fprintf("clusters is ")
+    disp(clusters)
+    
+    fprintf("nmspg is ")
+    disp(nmspg)
+    % nmspg is a dictionary of information about the scene 
+    % Generates plot with 3D coordinates along xyz axis
     show3DGraph(nmspg, data.x, clusters, 2); 
-    pause
+    pause(7)
 end
