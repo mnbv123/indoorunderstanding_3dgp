@@ -1,10 +1,10 @@
 function rule = clusterrule(numparts)
 if nargin == 0, numparts = 1; end
 rule = struct('type', 0, 'numparts', numparts, 'parts', partrules(numparts), 'threshold', 0, 'w', zeros(numparts * 4, 1));
-end
+end %forms struct
 
 function rules = partrules(numparts)
-%
+%forms struct for ci types based on differentials
 citypes = cell(numparts, 1);
 citypes(:) = {0};
 rules = struct('citype', citypes, ...
