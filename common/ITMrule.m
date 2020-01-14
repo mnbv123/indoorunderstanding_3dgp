@@ -10,7 +10,7 @@ rule = struct(  'type', 0, ...
 end
 
 function rules = partrules(numparts)
-%
+%shows parameters
 citypes = cell(numparts, 1);
 citypes(:) = {0};
 
