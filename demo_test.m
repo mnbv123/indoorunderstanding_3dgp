@@ -183,7 +183,7 @@ for i = 1:length(om)-1
 end
 
 %% test and visualize
-datalist = 22;
+datalist = 20;
 
 params = params2;
 params.objconftype = 'odd'; % M1 in the paper
@@ -192,7 +192,7 @@ pg0 = parsegraph();
 pg0.layoutidx = 1; % initialization
 pg0.scenetype = 1;
 
-for dataidx = datalist
+for dataidx = 1:datalist
     data = load(fullfile(preprocess_dir, datafiles(dataidx).name));
     % necessary if downloaded the preprocessed data  
     
@@ -233,5 +233,5 @@ for dataidx = datalist
     % nmspg is a dictionary of information about the scene 
     % Generates plot with 3D coordinates along xyz axis
     show3DGraph(nmspg, data.x, clusters, 2); 
-    pause(7)
+    pause(2)
 end
