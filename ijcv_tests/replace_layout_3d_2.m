@@ -32,6 +32,7 @@ end
 function data = assign_layout(data, vpdata, boxlayout)
 
 [imfile] = get_im_file(data);
+% File of image we are running code on is specified here
 data.x.imfile = imfile;
 
 img = imread(data.x.imfile);

@@ -1,5 +1,19 @@
 function drawCube(room, poly, figid) %(Faces, poly, K, R, cam_height)
 
+fprintf("room is ")
+disp(room)
+
+fprintf("room F is ")
+disp(room.F)
+
+fprintf("room K is ")
+disp(room.K)
+% K is likely the camera matrix and is positive definite
+
+fprintf("room R is ")
+disp(room.R)
+% R is likely the rotation matrix for the image
+
 Faces = room.F;
 K = room.K;
 R = room.R;

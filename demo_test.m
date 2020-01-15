@@ -8,6 +8,7 @@ if(~exist('./dataset', 'dir'))
     %system('mv cvpr13IndoorData.tar.gz ./dataset/; cd dataset/; tar xvf cvpr13IndoorData.tar.gz; rm cvpr13IndoorData.tar.gz; cd ..');
 end
 
+% Tells where to find folder of images to run code on
 imgbase = './dataset/cvpr13data/images/';
 
 preprocess_dir = 'cache/test';
@@ -182,7 +183,7 @@ for i = 1:length(om)-1
 end
 
 %% test and visualize
-datalist = 99;
+datalist = 22;
 
 params = params2;
 params.objconftype = 'odd'; % M1 in the paper
@@ -193,10 +194,14 @@ pg0.scenetype = 1;
 
 for dataidx = datalist
     data = load(fullfile(preprocess_dir, datafiles(dataidx).name));
-    % necessary if downloaded the preprocessed data     
+    % necessary if downloaded the preprocessed data  
+    
+    % This is a copy of the function get_im_file.m in the ijcv_tests directory
     if(~exist(data.x.imfile, 'file'))
         [~, fname] = strtok(data.x.imfile, '/');
         [~, fname] = strtok(fname, '/');
+        
+        % This is where the image that is to be modeled is specified 
         data.x.imfile = fullfile(imgbase, fname);
     end
     
@@ -211,11 +216,8 @@ for dataidx = datalist
     fprintf("data.x is ")
     disp(data.x)
     
-    fprintf("data is ")
-    disp(data)
-    
-    fprintf("data.x.corners is ")
-    celldisp(data.x.corners)
+    %fprintf("data is ")
+    %disp(data)
     
     fprintf("data.x.corners 1,1 is ")
     celldisp(data.x.corners(1,1))
