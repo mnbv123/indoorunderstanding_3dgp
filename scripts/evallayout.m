@@ -7,6 +7,7 @@ err = [];
 wtf = [];
 
 for i = 1:length(rooms)
+    % traindata is not a valid directory...probably should be ..cache/data instead
     datadir = fullfile('traindata', rooms{i});
     datafiles = dir(fullfile(datadir, '*.mat'));
     for j = 1:length(datafiles)

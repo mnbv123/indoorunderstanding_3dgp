@@ -9,6 +9,9 @@ matlabpool open 8
 
 %%
 load ./filtereddata/validfiles
+
+%TODO: This directory does not seem to exist
+
 resbase='../Data_Collection/cache';
 % datadir = 'data';
 datadir = 'data.v2';
@@ -16,6 +19,8 @@ datadir = 'data.v2';
 datasets = {'bedroom' 'livingroom' 'diningroom'};
 cnt = 1;
 for i = 1:length(datasets)
+    % for each dataset category, let files be a list of the .mat files in the same directory as 
+    % ../Data_Collection/cache/data.v2/**insert dataset use (i.e. bedroom)**
     files = dir(fullfile(fullfile(fullfile(resbase, datadir), datasets{i}), '*.mat'));
     for j = 1:length(files)
         temp = load(fullfile(fullfile(fullfile(resbase, datadir), datasets{i}), files(j).name));

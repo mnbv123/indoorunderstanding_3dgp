@@ -192,8 +192,7 @@ pg0 = parsegraph();
 pg0.layoutidx = 1; % initialization
 pg0.scenetype = 1;
 
-% Switch the following lines to process all images 
-%for dataidx = 1:datalist
+for dataidx = 1:datalist
 for dataidx = datalist
     data = load(fullfile(preprocess_dir, datafiles(dataidx).name));
     % necessary if downloaded the preprocessed data  
