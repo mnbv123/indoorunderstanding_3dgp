@@ -3,6 +3,9 @@ clear
 addPaths;
 
 if(~exist('./dataset', 'dir'))
+    system('powershell ls')
+    system('powershell wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorData.tar.gz -outfile cvpr13IndoorData.tar.gz');
+    system('powershell mv cvpr13IndoorData.tar.gz ./dataset/; cd dataset/; tar xvf cvpr13IndoorData.tar.gz; rm cvpr13IndoorData.tar.gz; cd ..');
     %mkdir('dataset');
     %system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorData.tar.gz');
     %system('mv cvpr13IndoorData.tar.gz ./dataset/; cd dataset/; tar xvf cvpr13IndoorData.tar.gz; rm cvpr13IndoorData.tar.gz; cd ..');
@@ -15,10 +18,17 @@ preprocess_dir = 'cache/test';
 if(~exist(preprocess_dir, 'dir'))
     r = input('Download preprocessed data? (y) or run all preprocessing? (n)', 's');
     if(r == 'y')
-        %mkdir('cache');
+        mkdir('cache');
+        system('powershell wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorPreprocessed.tar.gz -outfile cvpr13IndoorPreprocessed.tar.gz'); 
+        system('powershell mv cvpr13IndoorPreprocessed.tar.gz ./cache/; cd cache; tar xvf cvpr13IndoorPreprocessed.tar.gz; rm cvpr13IndoorPreprocessed.tar.gz; cd ..');
         %system('wget http://www.eecs.umich.edu/vision/data/cvpr13IndoorPreprocessed.tar.gz'); 
         %system('mv cvpr13IndoorPreprocessed.tar.gz ./cache/; cd cache; tar xvf cvpr13IndoorPreprocessed.tar.gz; rm cvpr13IndoorPreprocessed.tar.gz; cd ..');
     else
+        % This is for if you want to train on your own data? 
+        % Populates cache folder with generated data based on the dataset
+        % folder
+        % Maybe this means all training data must have both photos and
+        % annotations?
 		disp('WARNING: preprocessing may take several hours to a day (depending on the computing power).')
         disp('Please let it run, relax and check back later!');
         % preprocess data
@@ -195,7 +205,15 @@ pg0.scenetype = 1;
 % Switch the following lines to process all images 
 %for dataidx = 1:datalist
 for dataidx = datalist
+    
+    % Test data for image at index dataidx
     data = load(fullfile(preprocess_dir, datafiles(dataidx).name));
+    
+    fprintf('the thing we are loading is ');
+    disp(datafiles(dataidx).name);
+    
+    fprintf('it is located in ');
+    disp(fullfile(preprocess_dir, datafiles(dataidx).name));
     % necessary if downloaded the preprocessed data  
     
     % This is a copy of the function get_im_file.m in the ijcv_tests directory
@@ -206,6 +224,8 @@ for dataidx = datalist
         % This is where the image that is to be modeled is specified 
         data.x.imfile = fullfile(imgbase, fname);
     end
+    fprintf("data.x.imfile is ");
+    disp(data.x.imfile);
     
     [iclusters] = clusterInteractionTemplates(data.x, params.model);
     [spg, maxidx, h, clusters] = infer_top(data.x, iclusters, params, pg0);

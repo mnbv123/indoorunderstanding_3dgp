@@ -25,7 +25,7 @@ detbase = fullfile(resbase, 'detections');
 
 csize = 16;
 try
-    matlabpool open
+    preprocessPool = parpool;
 end
 for idx = 1:csize:length(files)
     setsize = min(length(files) - idx + 1, csize);
@@ -69,6 +69,6 @@ for idx = 1:csize:length(files)
         save([dirname '/data' num2str(idx+i-1, '%03d')], '-struct', 'temp');
     end
 end
-matlabpool close
+delete(preprocessPool)
 
 end
